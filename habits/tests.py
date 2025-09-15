@@ -11,7 +11,7 @@ class HabitTestCase(APITestCase):
     def setUp(self):
         self.user = User.objects.create(email="test@test.com")
         self.habit = Habit.objects.create(
-            place="парк", action="пробежка"
+            place="парк", action="пробежка", user=self.user
         )
         self.client.force_authenticate(user=self.user)
 
@@ -24,13 +24,13 @@ class HabitTestCase(APITestCase):
 
     def test_habit_create(self):
         url = reverse("habits:habits-create")
-        data = {"place": "парк", "action": "пробежка"}
+        data = {"place": "парк", "action": "пробежка", "reward": "торт"}
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_habit_update(self):
         url = reverse("habits:habits-update", args=(self.habit.pk,))
-        data = {"action": "Чтение"}
+        data = {"action": "Чтение", "reward": "игры"}
         response = self.client.patch(url, data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data.get("action"), "Чтение")
@@ -51,14 +51,14 @@ class HabitTestCase(APITestCase):
             "results": [
                 {
                     "id": self.habit.pk,
-                    "time_to_complete": self.habit.time_to_complete,
+                    "time_to_complete": "0" + str(self.habit.time_to_complete),
                     "place": self.habit.place,
                     "time": self.habit.time,
                     "action": self.habit.action,
                     "pleasure_habit": self.habit.pleasure_habit,
                     "period": self.habit.period,
                     "reward": self.habit.reward,
-                    "user": self.habit.user,
+                    "user": self.habit.user.pk,
                     "related_habit": self.habit.related_habit,
                 }
             ],
