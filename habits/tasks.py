@@ -1,7 +1,11 @@
 from celery import shared_task
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
-BOT_TOKEN = os.getenv(TG_BOT_TOKEN)
+BOT_TOKEN = os.getenv("TG_BOT_TOKEN")
 BASE_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
 
