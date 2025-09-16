@@ -9,7 +9,6 @@ from .models import Habit
 from .serializers import HabitSerializer, PublicHabitSerializer
 from users.permissions import IsUser
 from .paginators import CustomPaginator
-from users.models import User
 
 
 class HabitCreateApiView(CreateAPIView):
