@@ -169,8 +169,8 @@ CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
 AUTH_USER_MODEL = "users.User"
 
 CELERY_BEAT_SCHEDULE = {
-    "send_notification": {
-        "task": "habits.tasks.send_notification",
+    "send_habit_reminders": {
+        "task": "habits.tasks.send_habit_reminders",
         "schedule": timedelta(days=1),
     },
 }
