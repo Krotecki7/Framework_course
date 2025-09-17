@@ -7,10 +7,16 @@ from datetime import timedelta
 
 class Habit(models.Model):
     user = models.ForeignKey(
-        User, verbose_name="Пользователь", on_delete=models.CASCADE, blank=True, null=True
+        User,
+        verbose_name="Пользователь",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
     place = models.CharField(max_length=28, verbose_name="Место привычки")
-    time = models.TimeField(verbose_name="Время для начала выполнения привычки", blank=True, null=True)
+    time = models.TimeField(
+        verbose_name="Время для начала выполнения привычки", blank=True, null=True
+    )
     action = models.CharField(
         max_length=100, verbose_name="действие, которое представляет собой привычка"
     )
@@ -38,7 +44,10 @@ class Habit(models.Model):
         null=True,
     )
     time_to_complete = models.DurationField(
-        default=timedelta(seconds=120), verbose_name="Время на выполение привычки", blank=True, null=True
+        default=timedelta(seconds=120),
+        verbose_name="Время на выполение привычки",
+        blank=True,
+        null=True,
     )
     is_public = models.BooleanField(
         verbose_name="Признак публичности", blank=True, null=True
