@@ -16,4 +16,3 @@ def send_notification(chat_id, text):
         requests.post(BASE_URL, params=params)
     except Exception as e:
         print(f"ошибка {e}")
-

@@ -1,6 +1,5 @@
 from rest_framework.generics import (
     CreateAPIView,
-    ListAPIView,
     DestroyAPIView,
     RetrieveAPIView,
     UpdateAPIView,
@@ -41,7 +40,6 @@ class PublicHabitApiView(APIView):
     pagination_class = CustomPaginator
 
     def get(self, request):
-        is_public = request.data.get("is_public")
         habit = Habit.objects.filter(is_public=True)
         serializer = HabitSerializer(habit, many=True)
         return Response(serializer.data)
