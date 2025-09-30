@@ -34,6 +34,7 @@ jobs:
           POSTGRES_DB: django
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST: db
         ports: [ '5432:5432' ]
         options: >-
           --health-cmd pg_isready
@@ -66,18 +67,18 @@ jobs:
     - name: Run migrations
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        NAME: django
-        USER: postgres
-        PASSWORD: postgres
-        HOST: db
+        POSTGRES_DB: django
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_HOST: db
       run: python manage.py migrate
 
     - name: Run tests
       env:
-        NAME: django
-        USER: postgres
-        PASSWORD: db
-        HOST: db
+        POSTGRES_DB: django
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_HOST: db
       run: python manage.py test
 
   build:
