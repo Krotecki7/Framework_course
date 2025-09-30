@@ -69,14 +69,14 @@ jobs:
         NAME: django
         USER: postgres
         PASSWORD: postgres
-        HOST: db
+        HOST: localhost
       run: python manage.py migrate
 
     - name: Run tests
       env:
         NAME: django
         USER: postgres
-        PASSWORD: postgres
+        PASSWORD: localhost
         HOST: db
       run: python manage.py test
 
