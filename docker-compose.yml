@@ -2,10 +2,7 @@ version: '3.9'
 
 services:
     web:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        container_name: my_app
+        build: .
         command:
             bash -c "python manage.py migrate &&
                     python manage.py runserver 0.0.0.0:8000"
@@ -15,6 +12,8 @@ services:
             - .env
         volumes:
             - .:/code
+        environment:
+            POSTGRES_HOST: db
         depends_on:
             - db
             - redis
