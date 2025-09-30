@@ -5,7 +5,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        container_name: habits
+        container_name: my_app
         command:
             bash -c "python manage.py migrate &&
                     python manage.py runserver 0.0.0.0:8000"
