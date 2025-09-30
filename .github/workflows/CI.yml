@@ -34,6 +34,7 @@ jobs:
           POSTGRES_DB: django
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST: db
         ports: [ '5432:5432' ]
         options: >-
           --health-cmd pg_isready
