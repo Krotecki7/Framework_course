@@ -110,8 +110,8 @@ jobs:
     - name: Deploy to Server
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/habits:${{ github.sha }}
-          docker stop habits || true
-          docker rm habits || true
-          docker run -d --name habits -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/habits:${{ github.sha }}
+          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/framework_course:${{ github.sha }}
+          docker stop framework_course || true
+          docker rm framework_course || true
+          docker run -d --name framework_course -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/framework_course:${{ github.sha }}
         EOF
