@@ -75,6 +75,7 @@ jobs:
 
     - name: Run tests
       env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
         POSTGRES_DB: django
         POSTGRES_USER: postgres
         POSTGRES_PASSWORD: postgres
