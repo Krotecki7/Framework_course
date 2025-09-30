@@ -34,7 +34,6 @@ jobs:
           POSTGRES_DB: django
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_HOST: db
         ports: [ '5432:5432' ]
         options: >-
           --health-cmd pg_isready
@@ -67,19 +66,18 @@ jobs:
     - name: Run migrations
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        POSTGRES_DB: habits_tables
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: Al.krotov7
-        POSTGRES_HOST: db
+        NAME: django
+        USER: postgres
+        PASSWORD: postgres
+        HOST: localhost
       run: python manage.py migrate
 
     - name: Run tests
       env:
-        SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        POSTGRES_NAME: habits_tables
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: Al.krotov7
-        POSTGRES_HOST: db
+        NAME: django
+        USER: postgres
+        PASSWORD: postgres
+        HOST: localhost
       run: python manage.py test
 
   build:
@@ -111,8 +109,8 @@ jobs:
     - name: Deploy to Server
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/my_app:${{ github.sha }}
-          docker stop my_app || true
-          docker rm my_app || true
-          docker run -d --name app -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/my_app:${{ github.sha }}
+          sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/my_app:${{ github.sha }}
+          sudo docker stop my_app || true
+          sudo docker rm my_app || true
+          sudo docker run -d --name myapp -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/my_app:${{ github.sha }}
         EOF

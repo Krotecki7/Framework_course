@@ -5,6 +5,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+        container_name: my_app
         command:
             bash -c "python manage.py migrate &&
                     python manage.py runserver 0.0.0.0:8000"
@@ -22,12 +23,9 @@ services:
 
     db:
         image: postgres:16
-        container_name: postgres_db_habits
-        environment:
-            POSTGRES_DB: habits_tables
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: Al.krotov7
-            POSTGRES_HOST: db
+        container_name: postgres_db1
+        env_file:
+            - ./.env
         ports:
           - "5432:5432"
         volumes:
@@ -36,7 +34,7 @@ services:
             - app_network
     redis:
         image: redis:7
-        container_name: redis_habits
+        container_name: redis1
         ports:
             - "6379:6379"
         env_file:
@@ -46,13 +44,13 @@ services:
     celery:
         build:
             context: .
-        container_name: celery_worker_habits
+        container_name: celery_worker1
         command:
             celery -A config worker -l INFO
         env_file:
             - .env
         volumes:
-            - .:/app_1
+            - .:/app1
         depends_on:
             - db
             - redis
@@ -60,13 +58,13 @@ services:
     celery_beat:
         build:
             context: .
-        container_name: celery_beat_habits
+        container_name: celery_beat1
         command:
             celery -A config beat --loglevel=INFO
         env_file:
             - .env
         volumes:
-            - .:/app_1
+            - .:/app1
         depends_on:
             - db
             - redis
