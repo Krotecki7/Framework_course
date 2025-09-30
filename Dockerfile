@@ -14,6 +14,6 @@ ENV CELERY_BACKEND="redis://redis:6379/0"
 
 RUN mkdir -p /media
 
-EXPOSE 8000
+EXPOSE 8001
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8001"]
