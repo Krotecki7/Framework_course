@@ -34,7 +34,7 @@ jobs:
           POSTGRES_DB: django
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_HOST: db
+          POSTGRES_HOST: localhost
         ports: [ '5432:5432' ]
         options: >-
           --health-cmd pg_isready
@@ -70,7 +70,7 @@ jobs:
         POSTGRES_DB: django
         POSTGRES_USER: postgres
         POSTGRES_PASSWORD: postgres
-        POSTGRES_HOST: db
+        POSTGRES_HOST: localhost
       run: python manage.py migrate
 
     - name: Run tests
@@ -78,7 +78,7 @@ jobs:
         POSTGRES_DB: django
         POSTGRES_USER: postgres
         POSTGRES_PASSWORD: postgres
-        POSTGRES_HOST: db
+        POSTGRES_HOST: localhost
       run: python manage.py test
 
   build:
