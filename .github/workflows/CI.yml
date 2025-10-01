@@ -112,7 +112,7 @@ jobs:
     - name: Deploy to Server
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-          sudo docker rm -f django_app || true
+          sudo docker rm -f myapp || true
           sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
           sudo docker run -d --name myapp -p 80:8000 --restart unless-stopped  ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
         EOF
